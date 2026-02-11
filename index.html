@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lovebirds | Couples Photography</title>
+
+  <!-- LightGallery (CSS) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/css/lightgallery-bundle.min.css">
+  <!-- AOS (CSS) -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --pink:#E89EB9;
+      --pink-soft:#f7c8da;
+      --ink:#111114;
+      --white:#ffffff;
+      --cream:#fbfaf8;
+      --line: rgba(17,17,20,.12);
+      --muted: rgba(17,17,20,.70);
+      --muted2: rgba(17,17,20,.54);
+      --shadow: 0 18px 50px rgba(0,0,0,.10);
+      --radius: 18px;
+      --max: 1120px;
+    }
+
+    /* ✅ Gambarino font (local file in root) */
+    @font-face{
+      font-family: "Gambarino";
+      src: url("./Gambarino-Regular.otf") format("opentype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+
+    body{
+      font-family: Helvetica, "Helvetica Neue", Arial, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(900px 520px at 10% 0%, rgba(232,158,185,.16), transparent 55%),
+        radial-gradient(800px 520px at 92% 10%, rgba(247,200,218,.12), transparent 55%),
+        var(--cream);
+      line-height:1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a{text-decoration:none;color:inherit}
+    img{max-width:100%;display:block}
+    button{font-family: inherit}
+
+    .wrap{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 18px 18px 56px;
+    }
+
+    /* Top bar */
+    .topbar{
+      position: static;
+      top: auto;
+      z-index: auto;
+      background: rgba(251,250,248,.75);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(17,17,20,.08);
+    }
+
+    .topbar-inner{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 12px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width: 0;
+    }
+
+    .logo{
+      width:200px;
+      height:auto;
+      padding:10px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:var(--white);
+    }
+
+    .pill{
+      display:none;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.8);
+      font-size:.9rem;
+      color: rgba(17,17,20,.82);
+      white-space: nowrap;
+    }
+    .dot{
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--pink);
+      box-shadow:0 0 0 4px rgba(232,158,185,.2);
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      padding:14px 18px;
+      border-radius:999px;
+      font-weight:600;
+      font-size:1rem;
+      cursor:pointer;
+      border:1px solid transparent;
+      transition:all .15s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary{
+      background:var(--ink);
+      color:var(--white);
+      box-shadow:0 12px 28px rgba(17,17,20,.14);
+    }
+
+    .btn-primary:hover{filter:brightness(1.05)}
+
+    .btn-ghost{
+      background:transparent;
+      border-color:var(--line);
+      color: var(--ink);
+    }
+    .btn-ghost:hover{background: rgba(255,255,255,.65)}
+
+    .btn .ph{
+      font-size: 18px;
+      line-height: 0;
+    }
+
+    section{
+      margin-top:16px;
+      background:rgba(255,255,255,.75);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+
+    .section-inner{
+      padding:20px;
+    }
+
+    .kicker{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:.8rem;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--muted2);
+      margin-bottom:10px;
+    }
+    .kicker .ph{ font-size: 18px; color: rgba(17,17,20,.6); }
+
+    /* ✅ H1 + H2 in Gambarino */
+    h1, h2{
+      font-family: "Gambarino", Helvetica, "Helvetica Neue", Arial, sans-serif;
+      font-weight: 400; /* matches Regular font file */
+    }
+
+    h1{
+      font-size:3rem;
+      line-height:1.05;
+      letter-spacing:-.4px;
+      margin-bottom:12px;
+    }
+
+    h2{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:2rem;
+      letter-spacing:-.2px;
+      margin-bottom:10px;
+    }
+    h2 .ph{ font-size: 22px; color: rgba(17,17,20,.65); }
+
+    h3{
+      font-size:1.05rem;
+      font-weight:700;
+      margin-bottom:6px;
+    }
+
+    /* .accent{color:var(--pink)} */
+    .accent{
+    background: linear-gradient(90deg, #F7C8DA 0%, #E89EB9 55%, #F7C8DA 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    }
+
+
+    .subhead{
+      font-size:1.05rem;
+      color:var(--muted);
+      max-width:64ch;
+      margin-bottom:14px;
+    }
+
+    .offer{
+      margin-top:16px;
+      padding-top:16px;
+      border-top:1px solid var(--line);
+    }
+
+    .price{
+      font-size:2.1rem;
+      font-weight:700;
+      display:flex;
+      align-items: baseline;
+      gap:10px;
+      flex-wrap: wrap;
+    }
+
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 12px;
+      border-radius:999px;
+      background:rgba(232,158,185,.15);
+      border:1px solid rgba(232,158,185,.35);
+      font-size:.9rem;
+    }
+
+    /* Steps */
+    .steps{
+      display:grid;
+      gap:12px;
+    }
+
+    .step{
+      display:grid;
+      grid-template-columns:44px 1fr;
+      gap:12px;
+      padding:14px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.85);
+      align-items: start;
+    }
+
+    .num{
+      width:44px;
+      height:44px;
+      border-radius:12px;
+      background:rgba(232,158,185,.2);
+      border:1px solid rgba(232,158,185,.4);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      color: rgba(17,17,20,.9);
+      flex: 0 0 auto;
+    }
+
+    .num .ph{ font-size: 20px; color: rgba(17,17,20,.85); }
+
+    /* Gallery */
+    .gallery-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    .gallery-note{
+      font-size: .95rem;
+      color: var(--muted2);
+      max-width: 70ch;
+    }
+
+    #lightgallery{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .g-item{
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(17,17,20,.10);
+      background: rgba(255,255,255,.9);
+      box-shadow: 0 10px 26px rgba(0,0,0,.06);
+      aspect-ratio: 4 / 5;
+      transition: transform .16s ease, box-shadow .16s ease;
+    }
+    .g-item:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px rgba(0,0,0,.10);
+    }
+
+    .g-item img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+    }
+
+    .g-chip{
+      position:absolute;
+      left:10px;
+      bottom:10px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      background: rgba(255,255,255,.82);
+      border: 1px solid rgba(17,17,20,.10);
+      color: rgba(17,17,20,.82);
+      font-size: .85rem;
+      backdrop-filter: blur(10px);
+    }
+    .g-chip .ph{ font-size: 16px; color: rgba(17,17,20,.72); }
+
+    /* Tiny helper links */
+    .inline-link{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-weight:600;
+      color: rgba(17,17,20,.86);
+      border-bottom: 1px solid rgba(232,158,185,.55);
+      padding-bottom: 2px;
+    }
+    .inline-link .ph{ font-size: 18px; color: rgba(17,17,20,.70); }
+
+    /* Sticky CTA */
+    .sticky{
+      position:sticky;
+      bottom:0;
+      background:linear-gradient(180deg, rgba(251,250,248,0), rgba(251,250,248,1));
+      padding-top:12px;
+      margin-top: 16px;
+    }
+
+    .sticky-inner{
+      padding:10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.85);
+      border:1px solid var(--line);
+      box-shadow:0 16px 45px rgba(0,0,0,.1);
+    }
+
+    footer{
+      text-align:center;
+      padding:22px 0 10px;
+      color:var(--muted2);
+      font-size:.9rem;
+    }
+
+    footer a{
+      color: var(--ink);
+      font-weight: 600;
+    }
+    footer a:hover{ text-decoration: underline; }
+
+    @media(min-width:900px){
+      h1{font-size:3.2rem}
+      .sticky{display:none}
+      .pill{display:inline-flex}
+      #lightgallery{
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <img src="logo-lovebirds.png" class="logo" alt="Love Birds Logo" />
+      </div>
+
+      <!-- <div class="pill" aria-label="Limited Valentine’s sessions">
+        <span class="dot"></span>
+        Valentine’s Minis
+      </div> -->
+
+      <!-- <button class="btn btn-primary" onclick="goToCheckout()">
+        <i class="ph ph-lock-key-open"></i>
+        Reserve · $100
+      </button> -->
+    </div>
+  </div>
+
+  <main class="wrap">
+
+    <!-- HERO -->
+    <section data-aos="fade-up" id="top">
+      <div class="section-inner">
+        <div class="kicker">
+          <i class="ph ph-heart"></i>
+          Valentine’s Couples Photoshoot
+        </div>
+
+        <h1>The perfect <span class="accent">Valentine’s Day</span> gift</h1>
+
+        <p class="subhead">
+          A guided couples session to capture a moment for a lifetime.
+        </p>
+
+        <button class="btn btn-primary" onclick="goToCheckout()">
+          <i class="ph ph-calendar-check"></i>
+          Reserve Your Session · $100
+        </button>
+
+        <div class="offer">
+          <div class="price">
+            $100
+            <span class="tag">
+              <i class="ph ph-clock"></i>
+              30 min · 30 photos
+            </span>
+          </div>
+
+          <p class="subhead" style="margin-top:10px;">
+            Online gallery delivered in <strong>10 business days</strong>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section data-aos="fade-up" id="gallery">
+      <div class="section-inner">
+        <div class="gallery-head">
+          <h2><i class="ph ph-images"></i>Photo Gallery</h2>
+          <a class="inline-link" href="https://www.instagram.com/lovebirds.oc/" target="_blank" rel="noopener">
+            <i class="ph ph-instagram-logo"></i>
+            @lovebirds.oc
+          </a>
+        </div>
+
+        <p class="gallery-note"></p>
+
+        <!-- LightGallery container -->
+        <div id="lightgallery" aria-label="Lovebirds photo gallery">
+          <a class="g-item" href="images/lb-1.jpg" data-sub-html="<h4>Lovebirds</h4><p>Valentine’s Couples Mini</p>">
+            <img src="images/lb-1.jpg" alt="Lovebirds couples photo 1" loading="lazy">
+            <span class="g-chip"><i class="ph ph-magnifying-glass-plus"></i> View</span>
+          </a>
+
+          <a class="g-item" href="images/lb-2.jpg" data-sub-html="<h4>Lovebirds</h4><p>Valentine’s Couples Mini</p>">
+            <img src="images/lb-2.jpg" alt="Lovebirds couples photo 2" loading="lazy">
+            <span class="g-chip"><i class="ph ph-magnifying-glass-plus"></i> View</span>
+          </a>
+
+          <a class="g-item" href="images/lb-3.jpg" data-sub-html="<h4>Lovebirds</h4><p>Valentine’s Couples Mini</p>">
+            <img src="images/lb-3.jpg" alt="Lovebirds couples photo 3" loading="lazy">
+            <span class="g-chip"><i class="ph ph-magnifying-glass-plus"></i> View</span>
+          </a>
+
+          <a class="g-item" href="images/lb-4.jpg" data-sub-html="<h4>Lovebirds</h4><p>Valentine’s Couples Mini</p>">
+            <img src="images/lb-4.jpg" alt="Lovebirds couples photo 4" loading="lazy">
+            <span class="g-chip"><i class="ph ph-magnifying-glass-plus"></i> View</span>
+          </a>
+
+          <a class="g-item" href="images/lb-5.jpg" data-sub-html="<h4>Lovebirds</h4><p>Valentine’s Couples Mini</p>">
+            <img src="images/lb-5.jpg" alt="Lovebirds couples photo 5" loading="lazy">
+            <span class="g-chip"><i class="ph ph-magnifying-glass-plus"></i> View</span>
+          </a>
+
+          <a class="g-item" href="images/lb-6.jpg" data-sub-html="<h4>Lovebirds</h4><p>Valentine’s Couples Mini</p>">
+            <img src="images/lb-6.jpg" alt="Lovebirds couples photo 6" loading="lazy">
+            <span class="g-chip"><i class="ph ph-magnifying-glass-plus"></i> View</span>
+          </a>
+
+          <a class="g-item" href="images/lb-7.jpg" data-sub-html="<h4>Lovebirds</h4><p>Valentine’s Couples Mini</p>">
+            <img src="images/lb-7.jpg" alt="Lovebirds couples photo 7" loading="lazy">
+            <span class="g-chip"><i class="ph ph-magnifying-glass-plus"></i> View</span>
+          </a>
+
+          <a class="g-item" href="images/lb-8.jpg" data-sub-html="<h4>Lovebirds</h4><p>Valentine’s Couples Mini</p>">
+            <img src="images/lb-8.jpg" alt="Lovebirds couples photo 8" loading="lazy">
+            <span class="g-chip"><i class="ph ph-magnifying-glass-plus"></i> View</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHO IS THIS FOR -->
+    <section data-aos="fade-up" id="who">
+      <div class="section-inner">
+        <h2><i class="ph ph-users-three"></i>Who is this for?</h2>
+        <p class="subhead">
+          For couples who want something meaningful that marks a beautiful season in their lives.
+        </p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="num"><i class="ph ph-camera"></i></div>
+            <div>
+              <h3>Beautiful photos with expert guidance</h3>
+              <p class="subhead" style="margin:0;">
+                You show up as you are. We direct you with prompts that feel natural and fun.
+              </p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num"><i class="ph ph-gift"></i></div>
+            <div>
+              <h3>A Valentine’s gift that actually lasts</h3>
+              <p class="subhead" style="margin:0;">
+                An experience plus a gallery you can keep, share, and print.
+              </p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num"><i class="ph ph-heart-straight"></i></div>
+            <div>
+              <h3>Married, engaged, dating, or just because</h3>
+              <p class="subhead" style="margin:0;">
+                No big occasion needed. This is for the two of you.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOOKING STEPS -->
+    <section data-aos="fade-up" id="steps">
+      <div class="section-inner">
+        <h2><i class="ph ph-list-checks"></i>Booking steps</h2>
+
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <div>
+              <h3>Pay and reserve your spot</h3>
+              <p class="subhead" style="margin:0;">Secure your mini session through Stripe.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num">2</div>
+            <div>
+              <h3>We send you the booking calendar</h3>
+              <p class="subhead" style="margin:0;">Pick the date and time that works best for you.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num">3</div>
+            <div>
+              <h3>Arrive and we guide you every step</h3>
+              <p class="subhead" style="margin:0;">Prompts, posing, and direction.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num">4</div>
+            <div>
+              <h3>Gallery delivered in 10 business days</h3>
+              <p class="subhead" style="margin:0;">Online gallery for download and sharing.</p>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" style="margin-top:16px" onclick="goToCheckout()">
+          <i class="ph ph-lock-key-open"></i>
+          Reserve Your Session · $100
+        </button>
+
+        <!-- <p class="subhead" style="margin-top:12px; margin-bottom:0;">
+          Based in <strong>Orange County, CA</strong>.
+        </p> -->
+      </div>
+    </section>
+
+    <!-- CONTACT INFO -->
+    <section data-aos="fade-up" id="steps">
+      <div class="section-inner">
+        <h2><i class="ph ph-arrow-circle-right"></i>Get in touch</h2>
+
+        <div class="steps">
+          <div class="step">
+            <div class="num"><i class="ph ph-envelope"></i></div>
+            <div>
+              <h3>Email</h3>
+              <p class="subhead" style="margin:0;">lovebirdsoc@gmail.com</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num"><i class="ph ph-phone"></i></div>
+            <div>
+              <h3>Phone</h3>
+              <p class="subhead" style="margin:0;">(562) 242-9147</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- <p class="subhead" style="margin-top:12px; margin-bottom:0;">
+          Based in <strong>Orange County, CA</strong>.
+        </p> -->
+      </div>
+    </section>
+
+    <!-- Mobile sticky CTA -->
+    <div class="sticky">
+      <div class="sticky-inner">
+        <button class="btn btn-primary" style="width:100%;" onclick="goToCheckout()">
+          <i class="ph ph-calendar-check"></i>
+          Reserve · $100
+        </button>
+      </div>
+    </div>
+
+    <footer>
+      © Lovebirds | Couple Photography<br />
+      Orange County, CA ·
+      <a href="https://www.instagram.com/lovebirds.oc/" target="_blank" rel="noopener">@lovebirds.oc</a>
+    </footer>
+
+  </main>
+
+  <!-- Phosphor Icons (Web) -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <!-- LightGallery (JS) -->
+  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/lightgallery.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/thumbnail/lg-thumbnail.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/zoom/lg-zoom.umd.min.js"></script>
+
+  <!-- AOS (JS) -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+
+
+  <script>
+    const STRIPE_LINK = "https://buy.stripe.com/cNi7sM2kteDe1N80XjfMA0e";
+
+    function goToCheckout() {
+      window.location.href = STRIPE_LINK;
+    }
+
+    // LightGallery init
+    document.addEventListener("DOMContentLoaded", () => {
+      const el = document.getElementById("lightgallery");
+      if (!el || typeof lightGallery === "undefined") return;
+
+      lightGallery(el, {
+        licenseKey: "0000-0000-000-0000",
+        speed: 300,
+        plugins: [lgZoom, lgThumbnail],
+        thumbnail: true,
+        zoom: true,
+        selector: "a.g-item",
+        mobileSettings: {
+          controls: true,
+          showCloseIcon: true,
+          download: false
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
